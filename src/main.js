@@ -5,7 +5,7 @@ const genderSelect = document.getElementById('gender');
 let obj = [];
 const doFetch = (arr) => {
   for (let i = 0; i < arr.length; i++) {
-    let url = 'http://www.omdbapi.com/?t=' + arr[i].split(' ').join('+') + '&apikey=8f7b2287';
+    let url = 'https://www.omdbapi.com/?t=' + arr[i].split(' ').join('+') + '&apikey=8f7b2287';
     fetch(url)
       .then(response => {
         return response.json();
