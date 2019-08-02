@@ -1,10 +1,11 @@
 const moviesTab = document.getElementById('movies');
 const recommended = document.getElementById('recommended');
+const genderSelect = document.getElementById('gender');
 
 let obj = [];
 const doFetch = (arr) => {
   for (let i = 0; i < arr.length; i++) {
-    let url = 'https://www.omdbapi.com/?t=' + arr[i].split(' ').join('+') + '&apikey=8f7b2287';
+    let url = 'http://www.omdbapi.com/?t=' + arr[i].split(' ').join('+') + '&apikey=8f7b2287';
     fetch(url)
       .then(response => {
         return response.json();
@@ -13,8 +14,24 @@ const doFetch = (arr) => {
         obj.push(data);
         showMovies(obj);
         carousel();
+        gender.innerHTML = fillSelect(obj.map(dat => dat.Genre));
       });
   }
+};
+
+doFetch(PELICULAS);
+
+const fillSelect = (gender) => {
+  gender = gender.toString().split(',');
+  gender = Array.from(new Set(gender));
+
+  let template = '<option value="0" selected disabled>Géneros</option>';
+
+  for (let j = 0; j < gender.length; j++) {
+    template += `<option value=${gender[j]}>${gender[j]}</option>`;
+  }
+
+  return template;
 };
 
 const buscador = document.getElementById('buscador');
@@ -22,7 +39,6 @@ const buscar = document.getElementById('buscar');
 buscar.addEventListener('click', () => {
   document.getElementById('container').innerHTML = '';
   document.getElementById('carousel').classList.add('hide');
-  let movies = [];
   const movie = buscador.value.split(' ').join('+');
   const url = `https://www.omdbapi.com/?s=${movie}&apikey=8f7b2287`;
   fetch(url)
@@ -30,47 +46,44 @@ buscar.addEventListener('click', () => {
       return response.json();
     })
     .then(data => {
-      document.getElementById('containerImdb').innerHTML = showCardMovies(data.Search.filter(b=>b.Poster !== "N/A"));
+      document.getElementById('container').classList.remove('hide');
+      document.getElementById('container').classList.add('container');
+      document.getElementById('containerImdb').classList.remove('hide');
+      document.getElementById('containerImdb').classList.add('container');
+      document.getElementById('containerImdb').innerHTML = showCardMovies(data.Search.filter(dat => dat.Poster !== 'N/A'));
     });
 });
-
-doFetch(PELICULAS);
-
 
 const showMovies = (array) => {
   let text = `<div id="lastClone" class="car-show">
   <img class="carousel-img" src="${array[array.length - 1].Poster}"/>
-  <h2 class="su-titulo">${array[array.length - 1].Title}</h2>
+  <a class="su-titulo" href="#">${array[array.length - 1].Title}</a>
   <p class="year">${array[array.length - 1].Year}</p>
 </div>`;
   for (let i = 0; i < array.length; i++) {
     const card = `
       <div name="jalar" id="${array[i].imdbID}" class="car-show">
         <img class="carousel-img" src="${array[i].Poster}"/>
-        <h2 class="su-titulo">${array[i].Title}</h2>
+        <a class="su-titulo" href="#">${array[i].Title}</a>
         <p class="year">${array[i].Year}</p>
       </div>`;
     text += card;
   }
   text += `<div id="firstClone" class="car-show">
   <img class="carousel-img" src="${array[0].Poster}"/>
-  <h2 class="su-titulo">${array[0].Title}</h2>
+  <a class="su-titulo" href="#">${array[0].Title}</a>
   <p class="year">${array[0].Year}</p>
 </div>`;
   document.querySelector('.carousel-slide').innerHTML = text;
 };
+
 const carousel = () => {
   const carouselSlide = document.querySelector('.carousel-slide');
   const carouselImages = document.querySelectorAll('.carousel-slide div');
-
-  console.log(carouselImages);
-  //buttons
-
   const prevBtn = document.querySelector('#preBtn');
   const nextBtn = document.querySelector('#nextBtn');
   let counter = 1;
   const size = carouselImages[0].clientWidth;
-
   carouselSlide.style.transform = 'translateX(' + (-size * counter) + 'px)';
 
   nextBtn.addEventListener('click', () => {
@@ -91,16 +104,18 @@ const carousel = () => {
     if (carouselImages[counter].id === 'lastClone') {
       carouselSlide.style.transition = 'none';
       counter = carouselImages.length - 2;
-      //carouselSlide.style.transform = 'translateX(' + (-size * counter) + 'px)';
     } else if (carouselImages[counter].id === 'firstClone') {
       carouselSlide.style.transition = 'none';
       counter = carouselImages.length - counter;
-      //carouselSlide.style.transform = 'translateX(' + (-size * counter) + 'px)';
     }
   });
 };
+
 const movieCards = document.getElementById('cards-movie');
 movieCards.addEventListener('click', () => {
+  modalBuscar.classList.remove('flexbox');
+  modalBuscar.classList.remove('show');
+  modalBuscar.classList.add('hide');
   const postMovie = event.target.parentElement.id;
   console.log(postMovie);
   const idMovie = obj.map(ele => ele.imdbID).indexOf(postMovie);
@@ -156,6 +171,7 @@ const cerrar = document.getElementById('close');
 cerrar.addEventListener('click', () => {
   document.getElementById('modal').classList.add('hide');
 });
+
 const up = document.querySelector('#up');
 window.addEventListener('scroll', () => {
   if (window.pageYOffset > 200) {
@@ -169,27 +185,64 @@ up.addEventListener('click', () => {
   window.scrollTo(0, 0);
 });
 
-
-
-
 const searching = document.getElementById('botonBuscar');
 const modalBuscar = document.getElementById('search-by-name');
 
 searching.addEventListener('click', () => {
+  document.getElementById('video').classList.remove('video');
+  document.getElementById('video').classList.add('hide');
+  document.getElementById('containerImdb').innerHTML = '';
   modalBuscar.classList.remove('hide');
   modalBuscar.classList.add('show');
   modalBuscar.classList.add('flexbox');
 });
 
+const showCardMovies = (array) => {
+  let text = '';
+  for (let i = 0; i < array.length; i++) {
+    const card = `
+      <div name="jalar" id="${array[i].imdbID}" class="inline">
+        <img class="filter-poster" src="${array[i].Poster}"/><br>
+        <a class="su-titulo" href="#">${array[i].Title}</a>
+      </div>`;
+    text += card;
+  }
+  return text;
+};
+
 countries.addEventListener('change', () => {
+  document.getElementById('video').classList.remove('video');
+  document.getElementById('video').classList.add('hide');
+  document.getElementById('containerImdb').innerHTML = '';
+  document.getElementById('gender').selectedIndex = '0';
+  modalBuscar.classList.remove('flexbox');
+  modalBuscar.classList.remove('show');
+  modalBuscar.classList.add('hide');
   document.getElementById('container').innerHTML = '';
+  document.getElementById('containerImdb').classList.add('hide');
   document.getElementById('carousel').classList.add('hide');
   const country = document.getElementById('countries').value;
-  const a = filterCountry(obj, country);
-  document.getElementById('container').innerHTML = showCardMovies(a);
+  let text = '';
+  console.log(country);
+  if (country === '1') {
+    text = showCardMovies(obj);
+  } else {
+    const a = filterCountry(obj, country);
+    text = showCardMovies(a);
+  }
+  document.getElementById('container').innerHTML = text;
 });
+
 gender.addEventListener('change', () => {
+  document.getElementById('video').classList.remove('video');
+  document.getElementById('video').classList.add('hide');
+  document.getElementById('containerImdb').innerHTML = '';
+  document.getElementById('countries').selectedIndex = '0';
+  modalBuscar.classList.remove('flexbox');
+  modalBuscar.classList.remove('show');
+  modalBuscar.classList.add('hide');
   document.getElementById('container').innerHTML = '';
+  document.getElementById('containerImdb').classList.add('hide');
   document.getElementById('carousel').classList.add('hide');
   const gender = document.getElementById('gender').value;
   const a = filterGender(obj, gender);
@@ -197,28 +250,36 @@ gender.addEventListener('change', () => {
 });
 
 
-const showCardMovies = (array) => {
-  let text = '';
-  for (let i = 0; i < array.length; i++) {
-    const card = `
-      <div name="jalar" id="${array[i].imdbID}">
-        <img src="${array[i].Poster}"/>
-        <p>${array[i].Title}</p>
-      </div>`;
-    text += card;
-  }
-  return text;
-};
-recommended.addEventListener('click', ()=>{
+recommended.addEventListener('click', () => {
+  document.getElementById('video').classList.remove('hide');
+  document.getElementById('video').classList.add('video');
+  document.getElementById('filters').classList.add('hide');
+  document.getElementById('containerImdb').innerHTML = '';
+  modalBuscar.classList.remove('flexbox');
+  modalBuscar.classList.remove('show');
+  modalBuscar.classList.add('hide');
+  document.getElementById('container').classList.add('hide');
   document.getElementById('carousel').classList.remove('hide');
-
+  document.getElementById('containerImdb').classList.add('hide');
   document.getElementById('container').innerHTML = '';
   showMovies(obj);
   carousel();
 });
-moviesTab.addEventListener('click', ()=>{
+moviesTab.addEventListener('click', () => {
+  document.getElementById('containerImdb').innerHTML = '';
+  modalBuscar.classList.remove('flexbox');
+  modalBuscar.classList.remove('show');
+  modalBuscar.classList.add('hide');
+  document.getElementById('filters').classList.remove('hide');
+  document.getElementById('containerImdb').classList.remove('container');
+  document.getElementById('containerImdb').classList.add('hide');
   document.getElementById('carousel').classList.add('hide');
   document.getElementById('container').innerHTML = showCardMovies(obj);
+  document.getElementById('container').classList.remove('hide');
+  document.getElementById('container').classList.add('show');
+  document.getElementById('container').classList.add('container');
+  document.getElementById('video').classList.remove('video');
+  document.getElementById('video').classList.add('hide');
 });
 
 const movieSearch = document.getElementById('containerImdb');

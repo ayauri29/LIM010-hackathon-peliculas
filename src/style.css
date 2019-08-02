@@ -1,5 +1,5 @@
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&Cormorant+Garamond|Montserrat&display=swap');
 
 *{
     font-style: normal;
@@ -18,25 +18,48 @@ main{
     flex:1;
     margin-bottom: 62px;
 }
+.hide {
+    display: none;
+}
+.cont{
+  display:flex;
+  justify-content: center;
+}
 
+
+.video {
+    text-align: center;
+    width: 75%;
+    height: 110%;
+     background: #e72f78;
+}
 footer {
     margin: 0;
-    padding: 10px 0px;
-    background: #000;
+    padding: 10px 20px;
+    background: #59c6f2;
     text-align: center;
     position: fixed;
     bottom: 0;
     width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
 }
 footer p:nth-child(1){
-  
-    color: white;
-    font-size: 11px;
+    color: #e72f78;
+    font-size: 0.75em;
     margin: 0px;
+    letter-spacing: 1px;
+    margin-right: 40px;
+    font-weight: bold;
 }
 footer p:nth-child(2){
-    font-size: 20px;
+    /*font-size: 20px;
     color: white;
+    margin: 0;*/
+    font-size: 25px;
+    color: #e72f78;
     margin: 0;
 }
 #up {
@@ -47,37 +70,43 @@ footer p:nth-child(2){
     font-size: 18px;
     border: none;
     outline: none;
-    background-color: red;
+    background-color:#e72f78;
     color: white;
     cursor: pointer;
     padding: 15px;
     border-radius: 4px;
 }
 #up:hover {
-    background-color: #0d47a1;
+    background-color: #59c6f2;
 }
 header {
     display: flex;
     flex-direction: column;
 }
 
-/*logo*/
-#logo {
-background-attachment: fixed;
-background-size: cover;
-background-repeat: no-repeat;
-display:flex;
-justify-content: center;
-width: 100%;
-height: 100%;
+h1{
+  font-size: 60px;
+  color: #373739;
+  font-family: 'Ubuntu', sans-serif;
+  text-align: center;
+  margin: 0 auto;
 }
+.logo{
+  transform: translateY(10px);
+  width: 100px;
+}
+#logo {
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 140px;
+  align-items: center;
+  }
 
-/*header*/
-header {
-    display:flex;
-    flex-direction: column;
- }
-    
+  
 .head{
     font-size: 40px;
     width: 100%;
@@ -121,23 +150,24 @@ align-items: center;
 }
 
 .menu {
-width: 100%;
-color: #ffffff;
-font-family: 'Open Sans', sans-serif;
-font-size: 22px;
-text-align: center;
-text-decoration: none;
--webkit-transition:all 500ms ease;
--o-transition:all 500ms ease;
-transition: all 500ms ease;
-}
+    width: 100%;
+    color: #ffffff;
+    letter-spacing: 1px;
+    /*font-family: 'Open Sans', sans-serif;*/
+    font-size: 15px;
+    text-align: center;
+    text-decoration: none;
+    -webkit-transition:all 500ms ease;
+    -o-transition:all 500ms ease;
+    transition: all 500ms ease;
+    }
 
 .menu:hover /* dar el efecto hover, de boton*/
   {
 background:#33333365;
 }
 
-.carousel-conteiner {
+/*.carousel-conteiner {
   width: 90%;
   margin: auto;
   border: 2px solid black;
@@ -154,17 +184,53 @@ background:#33333365;
       width: 400px;
       height: 400px;
   
+  }*/
+  .barra-carousel {
+    display: flex;
+    align-items: center;
+    height: 430px;
+    margin-bottom: 20px;
+    background: black;
   }
+  .carousel-conteiner {
+    width: 90%;
+    text-align: center;
+    margin: auto;
+    /* border: 2px solid black;*/
+    overflow: hidden;
+    }
+    
+    .carousel-slide {
+    display:flex;
+    width: 100%;
+    height: 430px;
+    }
+  
+    .carousel-img {
+      height: 350px;
+      width: 250px;
+    
+    }
+  
 
   .hide{
     display: none;
   }
 
   .container{
-    padding: 70px;
+    /*padding: 10px 70px;
     display:flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap;*/
+    text-align: center;
   }
+.inline {
+    display: inline-block;
+    margin: 10px;
+    height: 480px;
+    vertical-align: top;
+    padding: 4px;
+    border: 2.5px solid #59c6f2;
+}
   main{
     display: inline-block;
   }
@@ -176,10 +242,79 @@ background:#33333365;
   .year {
     margin: 0;
     font-weight: bold;
+    color: wheat;
   }
 
-  /* MODAL */
-.dat-movie {
+/*parte yomi*/
+  .filters {
+      display: flex;
+      justify-content: center;
+      padding:35px;
+  }
+  .filter-poster {
+    width: 300px;
+    height: 430px;
+  }
+
+.box1 {
+    position: absolute;
+    top: 37%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+  }
+
+  .box2 {
+    position: absolute;
+    top: 37%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .box select {
+    background-color: #59c6f2;
+    color: white;
+    padding: 12px;
+    width: 250px;
+    border: none;
+    font-size: 18px;
+    /* font-weight: 600; */
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+    letter-spacing: 1px;
+    /* font-family: 'Open Sans', sans-serif; */
+    font-size: 15px;
+  }
+  
+  .box::before {
+    content: "\f13a";
+    font-family: FontAwesome;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    font-size: 28px;
+    line-height: 45px;
+    color: rgba(255, 255, 255, 0.5);
+    /*background-color: rgba(255, 255, 255, 0.1);*/
+    background-color: rgb(114, 99, 145);
+    pointer-events: none;
+  }
+  
+  .box:hover::before {
+    color: white;
+    background-color: rgb(81, 196, 162);
+  }
+  
+  .box select option {
+    padding: 30px;
+  }
+
+  /*modal*/
+  .dat-movie {
     color: #585252;
     padding: 15px;
     text-align: justify;
@@ -228,10 +363,12 @@ background:#33333365;
 
 .su-titulo {
     font-family: 'Open Sans', sans-serif;
-    color: peru;
-    width: 100%;
+    color: #e72f78;
+    font-weight: 600;
+    width: 300px;
     margin: 0;
     font-size: 15px;
+    text-decoration: none;
 }
 /*ESTILOS MODAL*/
 
@@ -323,3 +460,41 @@ background:#33333365;
 .hide {
   display: none;
 }
+
+#preBtn {
+    z-index: 10;
+    font-size: 90px;
+    color: white;
+    cursor: pointer;
+    }
+
+    #nextBtn {
+    z-index: 10;
+    font-size: 90px;
+    color: white;
+    cursor: pointer;
+    }
+#nextBtn:hover {
+    color: #e72f78;
+}
+#preBtn:hover {
+    color: #59c6f2;
+}
+
+.taquillera {
+font-family: 'Open Sans', sans-serif;
+color: #ffffff;
+font-weight: 600;
+width: 100%;
+margin: 0;
+font-size: 45px;
+}
+
+.taquillaperu{
+  font-family: 'Open Sans', sans-serif;
+  color: #59c6f2;
+  font-weight: 600;
+  width: 100%;
+  margin: 0;
+  font-size: 30px;
+  }
