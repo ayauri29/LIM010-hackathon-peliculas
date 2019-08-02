@@ -226,7 +226,7 @@ background:#33333365;
 .inline {
     display: inline-block;
     margin: 10px;
-    height: 480px;
+    height: 500px;
     vertical-align: top;
     padding: 4px;
     border: 2.5px solid #59c6f2;
@@ -367,7 +367,7 @@ background:#33333365;
     font-weight: 600;
     width: 300px;
     margin: 0;
-    font-size: 15px;
+    font-size: 18px;
     text-decoration: none;
 }
 /*ESTILOS MODAL*/
@@ -497,4 +497,8 @@ font-size: 45px;
   width: 100%;
   margin: 0;
   font-size: 30px;
+  }
+
+  .width {
+    width: 300px;
   }

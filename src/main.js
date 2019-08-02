@@ -202,8 +202,8 @@ const showCardMovies = (array) => {
   for (let i = 0; i < array.length; i++) {
     const card = `
       <div name="jalar" id="${array[i].imdbID}" class="inline">
-        <img class="filter-poster" src="${array[i].Poster}"/><br>
-        <a class="su-titulo" href="#">${array[i].Title}</a>
+        <img class="filter-poster" src="${array[i].Poster}"/>
+       <p class="width"><a class="su-titulo" href="#">${array[i].Title}</a></p>
       </div>`;
     text += card;
   }
