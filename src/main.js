@@ -123,6 +123,8 @@ movieCards.addEventListener('click', () => {
   if (event.target.parentElement.getAttribute('name') === 'jalar') {
     // mostramos modal
     document.getElementById('modal').classList.remove('hide');
+    document.getElementById('preBtn').classList.add('hide');
+    document.getElementById('nextBtn').classList.add('hide');
     // insertamos caracteristicas en el modal
     document.getElementById('info-movie').innerHTML = `
      <!--<div class="info-descripcion flex">-->
@@ -170,6 +172,8 @@ container.addEventListener('click', () => {
 const cerrar = document.getElementById('close');
 cerrar.addEventListener('click', () => {
   document.getElementById('modal').classList.add('hide');
+  document.getElementById('preBtn').classList.remove('hide');
+  document.getElementById('nextBtn').classList.remove('hide');
 });
 
 const up = document.querySelector('#up');
